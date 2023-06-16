@@ -1,0 +1,177 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct User {
+    string username;
+    string password;
+};
+
+bool isNullOrEmpty(const string& str) {
+    return str.empty();
+}
+
+void registerUser(User& user) {
+    cout << "Registration\n";
+    cout << "Username: ";
+    cin >> user.username;
+    cout << "Password: ";
+    cin >> user.password;
+    cout << "Registration successful!\n";
+}
+
+bool loginUser(const User& user) {
+    cout << "Login\n";
+    string username, password;
+    cout << "Username: ";
+    cin >> username;
+    cout << "Password: ";
+    cin >> password;
+
+    if (username == user.username && password == user.password) {
+        cout << "Login successful!\n";
+        return true;
+    } else {
+        cout << "Login failed!\n";
+        return false;
+    }
+}
+
+void orderLunch(const User& user) {
+    cout << "Welcome to the school lunch ordering system!\n";
+    cout << "Menu Options:\n";
+    cout << "1. Sushi\n";
+    cout << "2. Pizza\n";
+    cout << "3. Vegan Sushi\n";
+    cout << "4. Chicken Wrap\n";
+
+    int menuSelection;
+    cout << "Please select a menu item: ";
+    cin >> menuSelection;
+
+    cout << "Drink Options:\n";
+    cout << "1. Coke\n";
+    cout << "2. Orange Juice\n";
+    cout << "3. Iced Coffee\n";
+    cout << "4. Water\n";
+
+    int drinkSelection;
+    cout << "Please select a drink: ";
+    cin >> drinkSelection;
+
+    cout << "Payment Options:\n";
+    cout << "1. Pay with Card\n";
+    cout << "2. Pay with School Account\n";
+
+    int paymentOption;
+    cout << "Please select a payment option: ";
+    cin >> paymentOption;
+
+    cout << "Order placed!\n";
+    switch (menuSelection) {
+        case 1:
+            cout << "Sushi";
+            break;
+        case 2:
+            cout << "Pizza";
+            break;
+        case 3:
+            cout << "Vegan Sushi";
+            break;
+        case 4:
+            cout << "Chicken Wrap";
+            break;
+        default:
+            cout << "error with menu selection";
+            break;
+    }
+
+    cout << " with ";
+
+    switch (drinkSelection) {
+        case 1:
+            cout << "Coke";
+            break;
+        case 2:
+            cout << "Orange Juice";
+            break;
+        case 3:
+            cout << "Iced Coffee";
+            break;
+        case 4:
+            cout << "Water";
+            break;
+        default:
+            cout << "error with drink selection";
+            break;
+    }
+
+    cout << ".\n";
+
+    switch (paymentOption) {
+        case 1:
+        {
+            cout << "Payment method: Card\n";
+            string cardNumber, cardExpiry, cvcNumber;
+
+            cout << "Enter card number: ";
+            cin >> cardNumber;
+            cout << "Enter card expiry (MM/YY): ";
+            cin >> cardExpiry;
+            cout << "Enter CVC number: ";
+            cin >> cvcNumber;
+
+            cout << "Card number: " << cardNumber << endl;
+            cout << "Card expiry: " << cardExpiry << endl;
+            cout << "CVC number: " << cvcNumber << endl;
+
+            break;
+        }
+        case 2:
+            cout << "Payment method: School Account\n";
+            break;
+        default:
+            cout << "payment failed";
+            break;
+    }
+   
+    string discountCode;
+    cout << "Enter discount code (if any): ";
+    cin >> discountCode;
+    
+    if (discountCode == "discount10") {
+    cout << "Discount code: " << discountCode << " applied successfully!\n";
+    cout << "Enjoy your school lunch!\n";
+    cout << "eta 25 minutes for order!\n";
+   
+    } else {
+    cout << "Invalid discount code.\n";
+}
+
+}
+
+int main() {
+    User user;
+    registerUser(user);
+    int attempts = 3;
+    bool loggedIn = false;
+
+    while (attempts > 0 && !loggedIn) {
+        loggedIn = loginUser(user);
+        attempts--;
+
+        if (!loggedIn) {
+            cout << "Remaining attempts: " << attempts << endl;
+        }
+    }
+
+    if (!loggedIn) {
+        cout << "You have exceeded the maximum number of login attempts.\n";
+        return 0;
+    }
+
+    orderLunch(user);
+
+    return 0;
+}
